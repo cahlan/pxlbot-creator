@@ -1,0 +1,22 @@
+/*
+* Pxlbot CSS v1.0
+*/
+
+body {
+background: #fff;
+font-family: arial;
+font-size: 12px;
+}
+
+
+.theCanvas {
+width: 70%;
+height: 100%;
+}
+
+.partLibrary {
+width: 30%;
+background: #eee;
+float:right;
+}
+
