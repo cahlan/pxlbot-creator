@@ -21,9 +21,42 @@
 </head>
 <script type="text/javascript">
     $(function(){
+        var selected_img = null;
+        var spacing = 6;
         a = 0;
         $("img").draggable({
-            start: function(event, ui) { $(this).css("z-index", a++); }
+            start: function(event, ui) {
+                selected_img = $(this);
+                $(this).css("z-index", a++);
+            },
+            drag: function(event, ui) {
+                var y = ui.position.top;
+                y = y - y%spacing;
+                ui.position.top = y;
+                var x = ui.position.left;
+                x = x - x%spacing;
+                ui.position.left = x;
+            }
+        });
+        $("img").keydown(function(evt) {
+            var x = parseFloat($(this).css('left')) || 0;
+            var y = parseFloat($(this).css('top')) || 0;
+            switch (evt.keyCode) {
+                case 37:
+                    x -= spacing;
+                break;
+                case 38:
+                    y -= spacing;
+                break;
+                case 39:
+                    x += spacing;
+                break;
+                case 40:
+                    y += spacing;
+                break;
+            }
+            $(this).css('top', y+'px');
+            $(this).css('left', x+'px');
         });
     });
 
@@ -34,27 +67,27 @@
 </div>
 <div class="partLibrary">
 Arms & Legs<br>
-<img src="imgs/arm_top_left.png" />
-<img src="imgs/arm_bottom_left.png" />
-<img src="imgs/arm_top_right.png" />
-<img src="imgs/arm_bottom_right.png" />
-<img src="imgs/leg_bottom_left.png" />
-<img src="imgs/leg_bottom_right.png" />
-<img src="imgs/leg_top_left.png" />
-<img src="imgs/leg_top_right.png" />
+<img src="imgs/arm_top_left.png" tabindex="0" />
+<img src="imgs/arm_bottom_left.png" tabindex="1" />
+<img src="imgs/arm_top_right.png" tabindex="2" />
+<img src="imgs/arm_bottom_right.png" tabindex="3" />
+<img src="imgs/leg_bottom_left.png" tabindex="4" />
+<img src="imgs/leg_bottom_right.png" tabindex="5" />
+<img src="imgs/leg_top_left.png" tabindex="6" />
+<img src="imgs/leg_top_right.png" tabindex="7" />
 <br><br>
 Connectors<br>
-<img src="imgs/connector_hip.png" />
-<img src="imgs/connector_hip.png" />
-<img src="imgs/connector_arm.png" />
-<img src="imgs/connector_arm.png" />
+<img src="imgs/connector_hip.png" tabindex="8" />
+<img src="imgs/connector_hip.png" tabindex="9" />
+<img src="imgs/connector_arm.png" tabindex="10" />
+<img src="imgs/connector_arm.png" tabindex="11" />
 <br><br>
 Torso<br>
-<img src="imgs/torso_lower.png" />
-<img src="imgs/torso_upper.png" />
-<img src="imgs/head_alienskull.png" />
-<img src="imgs/retro_rocket.png" />
-<img src="imgs/retro_rocket.png" />
+<img src="imgs/torso_lower.png" tabindex="12" />
+<img src="imgs/torso_upper.png" tabindex="13" />
+<img src="imgs/head_alienskull.png" tabindex="14" />
+<img src="imgs/retro_rocket.png" tabindex="15" />
+<img src="imgs/retro_rocket.png" tabindex="16" />
 
 </body>
 </html>

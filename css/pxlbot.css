@@ -20,3 +20,6 @@ background: #eee;
 float:right;
 }
 
+img {
+    outline: none;
+}
