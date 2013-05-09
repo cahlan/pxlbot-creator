@@ -22,42 +22,100 @@
 <script type="text/javascript">
     $(function(){
         var selected_img = null;
-        var spacing = 6;
+        var spacing = 5;
         a = 0;
-        $("img").draggable({
-            start: function(event, ui) {
-                selected_img = $(this);
-                $(this).css("z-index", a++);
-            },
-            drag: function(event, ui) {
-                var y = ui.position.top;
-                y = y - y%spacing;
-                ui.position.top = y;
-                var x = ui.position.left;
-                x = x - x%spacing;
-                ui.position.left = x;
+        var drag_images = function() {
+            $("img").draggable({
+                start: function(event, ui) {
+                    /* cloning, doesn't work yet
+                    var new_img = $(this).clone(true);
+                    console.log(new_img);
+                    new_img.css('top', '0px');
+                    new_img.css('left', '0px');
+                    new_img.appendTo($('.partLibrary'));
+                    selected_img = $(this);
+                    */
+                    $(this).css("z-index", a++);
+                },
+                drag: function(event, ui) {
+                    var y = ui.position.top;
+                    y = y - y%spacing;
+                    ui.position.top = y;
+                    var x = ui.position.left;
+                    x = x - x%spacing;
+                    ui.position.left = x;
+                }
+            });
+            $("img").keydown(function(evt) {
+                var x = parseFloat($(this).css('left')) || 0;
+                var y = parseFloat($(this).css('top')) || 0;
+                switch (evt.keyCode) {
+                    case 37:
+                        x -= spacing;
+                    break;
+                    case 38:
+                        y -= spacing;
+                    break;
+                    case 39:
+                        x += spacing;
+                    break;
+                    case 40:
+                        y += spacing;
+                    break;
+                }
+                $(this).css('top', y+'px');
+                $(this).css('left', x+'px');
+            });
+        }
+
+        var load_image = function(path) {
+            var img = $('<img />').appendTo('body');
+            img.hide();
+            img.error(function(e) {
+                $(this).remove();
+                console.log("image not found, moving to next part class...");
+                curr_path_index++;
+                if(curr_path_index >= pieces.length) {
+                    curr_path_index = 0;
+                    //do nothing, we're done!
+                    console.log("done loading images");
+                    var c = 0;
+                    for (var i in all_images) {
+                        all_images[c].attr('tabindex', c.toString());
+                        c++;
+                    }
+                    drag_images();
+                }
+                else {
+                    index = 0;
+                    load_next_image();
+                }
+            });
+            img.load(function(evt) {
+                console.log("load event", evt);
+                //move image to right div
+                var i = $(evt.currentTarget);
+                console.log("image", i);
+                $('.'+pieces[curr_path_index]+'s').append(i);
+                i.show();
+                all_images.push(i);
+                load_next_image();
+            });
+            img.attr('src', path);
+        }
+
+        var all_images = [];
+        var pieces = ['arm', 'leg', 'connector', 'torso'];
+        var curr_path_index = 0;
+        var index = 0;
+        var continue_loading_images = true;
+        var load_next_image = function() {
+            if (continue_loading_images) {
+                index++;
+                load_image('imgs/'+pieces[curr_path_index]+'_'+index+'.png');
             }
-        });
-        $("img").keydown(function(evt) {
-            var x = parseFloat($(this).css('left')) || 0;
-            var y = parseFloat($(this).css('top')) || 0;
-            switch (evt.keyCode) {
-                case 37:
-                    x -= spacing;
-                break;
-                case 38:
-                    y -= spacing;
-                break;
-                case 39:
-                    x += spacing;
-                break;
-                case 40:
-                    y += spacing;
-                break;
-            }
-            $(this).css('top', y+'px');
-            $(this).css('left', x+'px');
-        });
+        }
+        load_next_image();
     });
 
 </script>
@@ -66,28 +124,45 @@
 <div class="theCanvas">&nbsp;
 </div>
 <div class="partLibrary">
-Arms & Legs<br>
-<img src="imgs/arm_top_left.png" tabindex="0" />
-<img src="imgs/arm_bottom_left.png" tabindex="1" />
-<img src="imgs/arm_top_right.png" tabindex="2" />
-<img src="imgs/arm_bottom_right.png" tabindex="3" />
-<img src="imgs/leg_bottom_left.png" tabindex="4" />
-<img src="imgs/leg_bottom_right.png" tabindex="5" />
-<img src="imgs/leg_top_left.png" tabindex="6" />
-<img src="imgs/leg_top_right.png" tabindex="7" />
-<br><br>
-Connectors<br>
-<img src="imgs/connector_hip.png" tabindex="8" />
-<img src="imgs/connector_hip.png" tabindex="9" />
-<img src="imgs/connector_arm.png" tabindex="10" />
-<img src="imgs/connector_arm.png" tabindex="11" />
-<br><br>
-Torso<br>
-<img src="imgs/torso_lower.png" tabindex="12" />
-<img src="imgs/torso_upper.png" tabindex="13" />
-<img src="imgs/head_alienskull.png" tabindex="14" />
-<img src="imgs/retro_rocket.png" tabindex="15" />
-<img src="imgs/retro_rocket.png" tabindex="16" />
-
+Arms<br />
+    <div class="arms">
+        <!--
+        <img src="imgs/arm_top_left.png" tabindex="0" />
+        <img src="imgs/arm_bottom_left.png" tabindex="1" />
+        <img src="imgs/arm_top_right.png" tabindex="2" />
+        <img src="imgs/arm_bottom_right.png" tabindex="3" />
+        -->
+    </div>
+<br /><br />
+Legs<br />
+    <div class="legs">
+        <!--
+        <img src="imgs/leg_bottom_left.png" tabindex="4" />
+        <img src="imgs/leg_bottom_right.png" tabindex="5" />
+        <img src="imgs/leg_top_left.png" tabindex="6" />
+        <img src="imgs/leg_top_right.png" tabindex="7" />
+        -->
+    </div>
+<br /><br />
+Connectors<br />
+    <div class="connectors">
+        <!--
+        <img src="imgs/connector_hip.png" tabindex="8" />
+        <img src="imgs/connector_hip.png" tabindex="9" />
+        <img src="imgs/connector_arm.png" tabindex="10" />
+        <img src="imgs/connector_arm.png" tabindex="11" />
+        -->
+     </div>
+<br /><br />
+Torso<br />
+    <div class="torsos">
+        <!--
+        <img src="imgs/torso_lower.png" tabindex="12" />
+        <img src="imgs/torso_upper.png" tabindex="13" />
+        <img src="imgs/head_alienskull.png" tabindex="14" />
+        <img src="imgs/retro_rocket.png" tabindex="15" />
+        <img src="imgs/retro_rocket.png" tabindex="16" />
+        -->
+    </div>
 </body>
 </html>
