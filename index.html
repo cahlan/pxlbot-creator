@@ -18,9 +18,11 @@
           href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.1/themes/base/jquery-ui.css"/>
 	<link rel="stylesheet" type="text/css"
           href="css/pxlbot.css"/>
+    <script type="text/javascript" src="jquery.idTabs.min.js"></script>
 </head>
 <script type="text/javascript">
     $(function(){
+        $("#ani1").hide();
         var selected_img = null;
         var spacing = 5;
         a = 0;
@@ -85,6 +87,7 @@
                         c++;
                     }
                     drag_images();
+                    $("#ani1").fadeIn();
                 }
                 else {
                     index = 0;
@@ -92,12 +95,11 @@
                 }
             });
             img.load(function(evt) {
-                console.log("load event", evt);
                 //move image to right div
                 var i = $(evt.currentTarget);
-                console.log("image", i);
                 $('.'+pieces[curr_path_index]+'s').append(i);
                 i.show();
+                console.log("added image to ", '.'+pieces[curr_path_index]+'s')
                 all_images.push(i);
                 load_next_image();
             });
@@ -116,6 +118,8 @@
             }
         }
         load_next_image();
+
+
     });
 
 </script>
@@ -123,46 +127,29 @@
 <body>
 <div class="theCanvas">&nbsp;
 </div>
-<div class="partLibrary">
-Arms<br />
-    <div class="arms">
-        <!--
-        <img src="imgs/arm_top_left.png" tabindex="0" />
-        <img src="imgs/arm_bottom_left.png" tabindex="1" />
-        <img src="imgs/arm_top_right.png" tabindex="2" />
-        <img src="imgs/arm_bottom_right.png" tabindex="3" />
-        -->
-    </div>
-<br /><br />
-Legs<br />
-    <div class="legs">
-        <!--
-        <img src="imgs/leg_bottom_left.png" tabindex="4" />
-        <img src="imgs/leg_bottom_right.png" tabindex="5" />
-        <img src="imgs/leg_top_left.png" tabindex="6" />
-        <img src="imgs/leg_top_right.png" tabindex="7" />
-        -->
-    </div>
-<br /><br />
-Connectors<br />
-    <div class="connectors">
-        <!--
-        <img src="imgs/connector_hip.png" tabindex="8" />
-        <img src="imgs/connector_hip.png" tabindex="9" />
-        <img src="imgs/connector_arm.png" tabindex="10" />
-        <img src="imgs/connector_arm.png" tabindex="11" />
-        -->
-     </div>
-<br /><br />
-Torso<br />
-    <div class="torsos">
-        <!--
-        <img src="imgs/torso_lower.png" tabindex="12" />
-        <img src="imgs/torso_upper.png" tabindex="13" />
-        <img src="imgs/head_alienskull.png" tabindex="14" />
-        <img src="imgs/retro_rocket.png" tabindex="15" />
-        <img src="imgs/retro_rocket.png" tabindex="16" />
-        -->
-    </div>
+<!-- Begin tab code -->
+<div id="adv2"> 
+  <ul class="idTabs">
+    <li><a href="#ani1" class="selected">Arms</a></li> 
+    <li><a href="#ani2">Legs</a></li> 
+    <li class="split"></li> 
+    <li><a href="#ani3">Connectors</a></li> 
+    <li><a href="#ani4">Torso</a></li> 
+  </ul>
+</div>
+<div style="clear: both; margin-top:20px;">
+    <div id="ani1" class="arms" style="display: block;"></div>
+    <div id="ani2" class="legs" style="display: none;"></div>
+    <div id="ani3" class="connectors" style="display: none;"></div>
+    <div id="ani4" class="torsos" style="display: none;"></div>
+</div>
+
+<script type="text/javascript">
+    $("#adv2").idTabs(function(id){
+        $(id).fadeIn();
+        return true;
+    });
+</script>
+
 </body>
 </html>

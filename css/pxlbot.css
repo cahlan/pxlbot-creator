@@ -1,6 +1,9 @@
 /*
 * Pxlbot CSS v1.0
 */
+li { list-style:none; float:left; }
+
+a {color: #fff};
 
 body {
 background: #fff;
@@ -22,4 +25,78 @@ float:right;
 
 img {
     outline: none;
+}
+
+/* Styles for Tabs */
+
+#adv2 {
+  width:500px;
+  margin:6px auto;
+  background:#181818;
+}
+#adv2 ul {
+ display:block;
+ width:50px;
+ height:50px;
+ float:left;
+}
+#adv2 li { float:left; }
+#adv2 li.split { clear:both; }
+#adv2 li a {
+  display:block;
+  height:25px;
+  width:25px;
+  line-height:22px;
+  text-decoration:none;
+  background:#222;
+}
+#adv2 li a:hover {
+  background:#0A0A0A;
+}
+#adv2 li a.selected {
+  background:snow;
+  color:#111;
+  font-weight:bold;
+}
+
+#adv2 span {
+  height:50px;
+  display:block;
+  line-height:45px;
+  width:450px;
+  float:right;
+  background:#181818;
+}
+
+#adv3 a {
+  color:snow;
+  font-size:2em;
+  font-weight:bold;
+  text-decoration:none;
+  margin:6px;
+}
+#adv3 a:hover { color:#68D; }
+#adv3 p {
+  color:#888;
+  margin:5px;
+  font-style:italic; 
+}
+#adv3 p a {
+  margin:0;
+  color:#CCC;
+  font-size:1em;
+  font-weight:bold;
+  text-decoration:underline;
+}
+#adv3 p a:hover { color:#FFF; }
+
+#message {
+  margin:10px auto;
+  border:6px solid #222;
+  width:240px;
+  height:40px;
+  background:#0D0D0D;
+  font-size:1.3em;
+  line-height:2em;
+  color:#FC4;
 }
