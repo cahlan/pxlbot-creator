@@ -26,18 +26,32 @@
         var selected_img = null;
         var spacing = 5;
         a = 0;
-        var drag_images = function() {
-            $("img").draggable({
+        var images_on_stage = [];
+        var done_loading_images = false;
+        var drag_images = function(selector) {
+            if (!!!selector) {
+                selector = "img";
+            }
+            $(selector).draggable({
                 start: function(event, ui) {
-                    /* cloning, doesn't work yet
-                    var new_img = $(this).clone(true);
-                    console.log(new_img);
-                    new_img.css('top', '0px');
-                    new_img.css('left', '0px');
-                    new_img.appendTo($('.partLibrary'));
-                    selected_img = $(this);
-                    */
-                    $(this).css("z-index", a++);
+                    if (images_on_stage.indexOf($(this).attr('id')) < 0) {
+                        //switches parent node so we don't lost it when they switch tab ...
+
+                        var index = $(this).index();
+
+                        var new_img = $(this).clone();
+                        new_img.insertAfter($(this));
+                        drag_images(new_img);
+
+                        $(this).appendTo(".theCanvas");
+                        $(this).attr('id', 'img_stage__'+images_on_stage.length);
+
+                        images_on_stage.push($(this).attr('id'));
+                    }
+                    $(this).css("z-index", images_on_stage.length);
+                },
+                stop: function(event, ui) {
+                    //console.log("stopped");
                 },
                 drag: function(event, ui) {
                     var y = ui.position.top;
@@ -48,7 +62,7 @@
                     ui.position.left = x;
                 }
             });
-            $("img").keydown(function(evt) {
+            $(selector).keydown(function(evt) {
                 var x = parseFloat($(this).css('left')) || 0;
                 var y = parseFloat($(this).css('top')) || 0;
                 switch (evt.keyCode) {
@@ -88,10 +102,13 @@
                     }
                     drag_images();
                     $("#ani1").fadeIn();
+                    done_loading_images = true;
                 }
                 else {
-                    index = 0;
-                    load_next_image();
+                    if (!done_loading_images) {
+                        index = 0;
+                        load_next_image();
+                    }
                 }
             });
             img.load(function(evt) {
@@ -99,9 +116,11 @@
                 var i = $(evt.currentTarget);
                 $('.'+pieces[curr_path_index]+'s').append(i);
                 i.show();
-                console.log("added image to ", '.'+pieces[curr_path_index]+'s')
+                //console.log("added image to ", '.'+pieces[curr_path_index]+'s')
                 all_images.push(i);
-                load_next_image();
+                if (!done_loading_images) {
+                    load_next_image();
+                }
             });
             img.attr('src', path);
         }
@@ -117,6 +136,7 @@
                 load_image('imgs/'+pieces[curr_path_index]+'_'+index+'.png');
             }
         }
+        console.log("LOADING IMAGES");
         load_next_image();
 
 
@@ -125,7 +145,7 @@
 </script>
 
 <body>
-<div class="theCanvas">&nbsp;
+<div class="theCanvas" style="background-color: #eee; height: 400px;">&nbsp;
 </div>
 <!-- Begin tab code -->
 <div id="adv2"> 
