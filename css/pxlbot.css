@@ -29,6 +29,10 @@ background: #eee;
 float:right;
 }
 
+.parts img {
+    padding-right:10px;
+}
+
 img {
     outline: none;
 }
@@ -36,19 +40,17 @@ img {
 /* Styles for Tabs */
 
 #adv2 {
-  width:30%;
   margin:0px auto;
   background:#eee;
-  float: left;
 }
 #adv2 ul {
- display:block;
+    float:left;
  width:100px;
  height:50px;
 
 }
-#adv2 li { float:left; }
-#adv2 li.split { clear:both; }
+#adv2 li {  }
+#adv2 li.split {  }
 #adv2 li a {
   height:50px;
   width:50px;
@@ -71,6 +73,12 @@ img {
   line-height:45px;
   width:450px;
   background:#333;
+}
+
+.save-area {
+position: absolute;
+clear: both;
+top: 615px;
 }
 
 a.download-link {
