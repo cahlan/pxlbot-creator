@@ -3,18 +3,24 @@
 */
 li { list-style:none; float:left; }
 
-a {color: #fff}
+a {
+	color: #fff;
+	decoration: none;
+}
 
+	
 body {
-background: #fff;
-font-family: arial;
-font-size: 12px;
+	background: #eee;
+	font-family: arial;
+	font-size: 12px;
 }
 
 
 .theCanvas {
 width: 70%;
 height: 100%;
+float:left;
+background: #fff;
 }
 
 .partLibrary {
@@ -30,73 +36,39 @@ img {
 /* Styles for Tabs */
 
 #adv2 {
-  width:500px;
-  margin:6px auto;
-  background:#181818;
+  width:30%;
+  margin:0px auto;
+  background:#fff;
+  float: left;
 }
 #adv2 ul {
  display:block;
- width:50px;
+ width:100px;
  height:50px;
- float:left;
+
 }
 #adv2 li { float:left; }
 #adv2 li.split { clear:both; }
 #adv2 li a {
-  display:block;
-  height:25px;
-  width:25px;
-  line-height:22px;
+  height:50px;
+  width:50px;
+  padding: 5px;
+  line-height:25px;
   text-decoration:none;
-  background:#222;
+  background:#444;
 }
 #adv2 li a:hover {
-  background:#0A0A0A;
+  background:#000;
 }
 #adv2 li a.selected {
-  background:snow;
+  background:#fff;
   color:#111;
   font-weight:bold;
 }
 
 #adv2 span {
   height:50px;
-  display:block;
   line-height:45px;
   width:450px;
-  float:right;
-  background:#181818;
-}
-
-#adv3 a {
-  color:snow;
-  font-size:2em;
-  font-weight:bold;
-  text-decoration:none;
-  margin:6px;
-}
-#adv3 a:hover { color:#68D; }
-#adv3 p {
-  color:#888;
-  margin:5px;
-  font-style:italic; 
-}
-#adv3 p a {
-  margin:0;
-  color:#CCC;
-  font-size:1em;
-  font-weight:bold;
-  text-decoration:underline;
-}
-#adv3 p a:hover { color:#FFF; }
-
-#message {
-  margin:10px auto;
-  border:6px solid #222;
-  width:240px;
-  height:40px;
-  background:#0D0D0D;
-  font-size:1.3em;
-  line-height:2em;
-  color:#FC4;
+  background:#333;
 }
