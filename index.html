@@ -19,6 +19,7 @@
 	<link rel="stylesheet" type="text/css"
           href="css/pxlbot.css"/>
     <script type="text/javascript" src="jquery.idTabs.min.js"></script>
+    <script src="http://www.nihilogic.dk/labs/canvas2image/canvas2image.js"></script>
 </head>
 <script type="text/javascript">
     $(function(){
@@ -83,6 +84,32 @@
                 $(this).css('left', x+'px');
             });
         }
+
+        $("#save").click(function() {
+            if ($('#canvas')) {
+                $('#canvas').remove();
+            }
+            var c = $('.theCanvas');
+            var c_width = c[0].offsetWidth;
+            var c_height = c[0].offsetHeight;
+            $('<canvas>').attr({id: 'canvas', width:c_width, height:c_height}).css({'background-color': '#fff', width: c.width()+'px', height: c.height()+'px'}).appendTo('body');
+            var canvas = document.getElementById('canvas');
+            var ctx = canvas.getContext('2d');
+            // comment these lines to preserve transparency
+            ctx.beginPath();
+            ctx.rect(0, 0, c_width, c_height);
+            ctx.fillStyle = 'white';
+            ctx.fill();
+            // comment above lines to preserve transparency
+            for(var index in images_on_stage) {
+                var id = images_on_stage[index];
+                var j = $('#'+id);
+                ctx.drawImage(document.getElementById(id), j.position().left, j.position().top);
+            }
+            var image = $(Canvas2Image.saveAsPNG(canvas, true));
+            var link = $('<a target=\"_blank\" class=\"download-link\" href=\"'+image.attr('src')+'\" download=\"my-pxlbot.png\">Download Me!</a>').appendTo(".save-area");
+            $('#canvas').remove();
+        });
 
         var load_image = function(path) {
             var img = $('<img />').appendTo('body');
@@ -185,7 +212,9 @@
     <div id="ani8" class="connectors"></div>
     <div id="ani9" class="miscs"></div>
 </div>
-
+<div class="save-area">
+    <button id="save">Save</button>
+</div>
 <script type="text/javascript">
     $("#adv2").idTabs(function(id){
         $(id).fadeIn();

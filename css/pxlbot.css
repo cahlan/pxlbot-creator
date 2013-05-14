@@ -72,3 +72,7 @@ img {
   width:450px;
   background:#333;
 }
+
+a.download-link {
+    color:blue;
+}
