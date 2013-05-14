@@ -25,7 +25,6 @@
         $("#ani1").hide();
         var selected_img = null;
         var spacing = 5;
-        var spacing = 6;
         a = 0;
         var images_on_stage = [];
         var done_loading_images = false;
@@ -127,6 +126,7 @@
         }
 
         var all_images = [];
+        var pieces = ['arm', 'leg', 'connector', 'torso'];
         var curr_path_index = 0;
         var index = 0;
         var continue_loading_images = true;
@@ -158,6 +158,10 @@
   </ul>
 </div>
 <div style="clear: both; margin-top:20px;">
+    <div id="ani1" class="arms" style="display: block;"></div>
+    <div id="ani2" class="legs" style="display: none;"></div>
+    <div id="ani3" class="connectors" style="display: none;"></div>
+    <div id="ani4" class="torsos" style="display: none;"></div>
 </div>
 
 <script type="text/javascript">
