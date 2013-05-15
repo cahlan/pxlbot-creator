@@ -153,7 +153,7 @@
         }
 
         var all_images = [];
-        var pieces = ['arm_upper','arm_lower','leg_upper','leg_lower','connector','torso_upper','torso_lower','head','misc'];
+        var pieces = ['arm_upper','arm_lower','leg_upper','leg_lower','torso_upper','torso_lower','head','other'];
         var curr_path_index = 0;
         var index = 0;
         var continue_loading_images = true;
@@ -175,13 +175,6 @@
 
 <!-- Begin tab code -->
 
-<!--<ul class="idTabs">
-<a href="#ani1" class="selected">Arms</a> 
-<a href="#ani2">Legs</a>
-<a href="#ani3">Connectors</a>
-<a href="#ani4">Torso</a>
-</ul>
--->
 <div class="theCanvas" style="height: 600px;">&nbsp;
 </div>
 
@@ -197,9 +190,8 @@
       <ul>
         <li><a href="#ani5">Legs (Upper)</a></li>
         <li><a href="#ani6">Legs (Lower)</a></li>
-        <li><a href="#ani7">Head</a></li>
-        <li><a href="#ani8">Connectors</a></li>
-        <li><a href="#ani9">Misc</a></li>
+        <li><a href="#ani7">Head / Eyes</a></li>
+        <li><a href="#ani9">Other</a></li>
         </ul>
       <div style="clear:both">&nbsp;</div>
     </div>
@@ -212,8 +204,7 @@
         <div id="ani5" class="parts leg_uppers"></div>
         <div id="ani6" class="parts leg_lowers"></div>
         <div id="ani7" class="parts heads"></div>
-        <div id="ani8" class="parts connectors"></div>
-        <div id="ani9" class="parts miscs"></div>
+        <div id="ani9" class="parts others"></div>
     </div>
 </div>
 <div class="save-area">
