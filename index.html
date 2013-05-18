@@ -25,7 +25,7 @@
     $(function(){
         $("#ani1").hide();
         var selected_img = null;
-        var spacing = 5;
+        var spacing = 6;
         a = 0;
         var images_on_stage = [];
         var done_loading_images = false;
@@ -35,21 +35,7 @@
             }
             $(selector).draggable({
                 start: function(event, ui) {
-                    if (images_on_stage.indexOf($(this).attr('id')) < 0) {
-                        //switches parent node so we don't lost it when they switch tab ...
-
-                        var index = $(this).index();
-
-                        var new_img = $(this).clone();
-                        new_img.insertAfter($(this));
-                        drag_images(new_img);
-
-                        $(this).appendTo(".theCanvas");
-                        $(this).attr('id', 'img_stage__'+images_on_stage.length);
-
-                        images_on_stage.push($(this).attr('id'));
-                    }
-                    $(this).css("z-index", images_on_stage.length);
+                    $(this).css("z-index", 100+images_on_stage.length);
                 },
                 stop: function(event, ui) {
                     //console.log("stopped");
@@ -68,16 +54,21 @@
                 var y = parseFloat($(this).css('top')) || 0;
                 switch (evt.keyCode) {
                     case 37:
-                        x -= spacing;
+                        x -= 1;
                     break;
                     case 38:
-                        y -= spacing;
+                        y -= 1;
                     break;
                     case 39:
-                        x += spacing;
+                        x += 1;
                     break;
                     case 40:
-                        y += spacing;
+                        y += 1;
+                    break;
+                    case 8:
+                    case 46:
+                        $(this).remove();
+                        return false;
                     break;
                 }
                 $(this).css('top', y+'px');
@@ -85,10 +76,30 @@
             });
         }
 
+        var init_images = function() {
+            $(".parts-images img").mousedown(function() {
+                //switches parent node so we don't lose it when they switch tab ...
+
+                var index = $(this).index();
+
+                var new_img = $(this).clone(false);
+                //new_img.insertAfter($(this));
+                drag_images(new_img);
+
+                $(new_img).appendTo(".theCanvas");
+                $(new_img).attr('id', 'img_stage__'+images_on_stage.length);
+
+                images_on_stage.push($(new_img).attr('id'));
+            });
+        }
+
         $("#save").click(function() {
             if ($('#canvas')) {
                 $('#canvas').remove();
             }
+            $(".save-area a").each(function() {
+                $(this).remove();
+            });
             var c = $('.theCanvas');
             var c_width = c[0].offsetWidth;
             var c_height = c[0].offsetHeight;
@@ -104,6 +115,7 @@
             for(var index in images_on_stage) {
                 var id = images_on_stage[index];
                 var j = $('#'+id);
+                console.log("j", j);
                 ctx.drawImage(document.getElementById(id), j.position().left, j.position().top);
             }
             var image = $(Canvas2Image.saveAsPNG(canvas, true));
@@ -127,7 +139,8 @@
                         all_images[c].attr('tabindex', c.toString());
                         c++;
                     }
-                    drag_images();
+                    //drag_images();
+                    init_images();
                     $("#ani1").fadeIn();
                     done_loading_images = true;
                 }
@@ -166,6 +179,11 @@
         console.log("LOADING IMAGES");
         load_next_image();
 
+        $('#adv2 li a').click(function() {
+            console.log("????");
+            $(".parts-images").animate({scrollTop:0}, 'fast');
+        });
+
 
     });
 
@@ -175,10 +193,11 @@
 
 <!-- Begin tab code -->
 
-<div class="theCanvas" style="height: 600px;">&nbsp;
-</div>
+<div class="theCanvas"></div>
 
 <div class="partLibrary">
+
+    <div id="logo">LOGO</div>
 
     <div id="adv2">
       <ul>
@@ -196,7 +215,7 @@
       <div style="clear:both">&nbsp;</div>
     </div>
 
-    <div style="clear: both; margin-top:100px;">
+    <div class="parts-images">
         <div id="ani1" class="parts torso_uppers"></div>
         <div id="ani2" class="parts torso_lowers"></div>
         <div id="ani3" class="parts arm_uppers"></div>
@@ -213,6 +232,7 @@
 <script type="text/javascript">
     $("#adv2").idTabs(function(id){
         $(id).fadeIn();
+        console.log("scrolling to top");
         return true;
     });
 </script>

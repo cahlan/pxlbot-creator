@@ -13,20 +13,40 @@ body {
 	background: #eee;
 	font-family: arial;
 	font-size: 12px;
+    overflow: hidden;
 }
 
 
 .theCanvas {
 width: 70%;
-height: 100%;
+    height: 600px;
+    background-color: black;
 float:left;
 background: #fff;
+    overflow: hidden;
+    z-index: 1;
+}
+
+#logo {
+    height:80px;
 }
 
 .partLibrary {
 width: 30%;
 background: #eee;
 float:right;
+    overflow: scroll;
+}
+
+.parts-images {
+    overflow-y: auto;
+    height:360px;
+    clear:both;
+    padding: 10px;
+    margin-top: 50px;
+    margin-left:10px;
+    border: 1px solid #999;
+    z-index: 0;
 }
 
 .parts img {
