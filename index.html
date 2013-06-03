@@ -142,6 +142,7 @@
                     init_images();
                     $("#ani1").fadeIn();
                     done_loading_images = true;
+                    $("#loading-bg").hide();
                 }
                 else {
                     if (!done_loading_images) {
@@ -191,6 +192,7 @@
 <body>
 
 <!-- Begin tab code -->
+<div id="loading-bg"><div id="load-text">LOADING</div></div>
 
 <div class="theCanvas"></div>
 
