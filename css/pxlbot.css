@@ -55,7 +55,7 @@ float:right;
 
 .parts-images {
     overflow-y: auto;
-    height:360px;
+    height:460px;
     clear:both;
     padding: 10px;
     margin-top: 50px;
@@ -113,9 +113,10 @@ img {
 .save-area {
 position: absolute;
 clear: both;
-top: 615px;
+top: 665px;
+left: 20px;
 }
 
 a.download-link {
-    color:blue;
+    color: #cc0000;
 }
