@@ -29,7 +29,9 @@ body {
     color: #333;
     position: absolute;
     top: 50%;
-    left: 50%;
+    left: 43%;
+    width: 300px;
+    text-align: center;
 }
 
 .theCanvas {
@@ -119,4 +121,8 @@ left: 20px;
 
 a.download-link {
     color: #cc0000;
+}
+a.custom-sticker {
+    padding-left: 15px;
+    color: #00cc00;
 }

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title></title>
+    <title>Pxlbot Builder (beta)</title>
     <!--
     <script type="text/javascript" src="jquery-ui/jquery-1.9.1.js"></script>
     <script type="text/javascript" src="jquery-ui/ui/jquery.ui.core.js"></script>
@@ -119,6 +119,7 @@
             }
             var image = $(Canvas2Image.saveAsPNG(canvas, true));
             var link = $('<a target=\"_blank\" class=\"download-link\" href=\"'+image.attr('src')+'\" download=\"my-pxlbot.png\">Download Me!</a>').appendTo(".save-area");
+            var convert = $('<a target=\"_blank" class=\"custom-sticker\" href=\"http://pxlbots.com/product/design-your-own-pxlbot-vinyl-sticker\">Turn your design into a sticker!</a>').appendTo(".save-area");
             $('#canvas').remove();
         });
 
@@ -171,6 +172,7 @@
         var index = 0;
         var continue_loading_images = true;
         var load_next_image = function() {
+            $("#load-spec").html(pieces[curr_path_index]+" PIECES");
             if (continue_loading_images) {
                 index++;
                 load_image('imgs/'+pieces[curr_path_index]+'_'+index+'.png');
@@ -192,7 +194,8 @@
 <body>
 
 <!-- Begin tab code -->
-<div id="loading-bg"><div id="load-text">LOADING</div></div>
+<div id="loading-bg"><div id="load-text">LOADING <span
+id="load-spec"></span></div></div>
 
 <div class="theCanvas"></div>
 
